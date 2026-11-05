@@ -48,6 +48,9 @@ importers:
       cf:
         specifier: latest
         version: 1.0.0-beta.27(@types/node@26.6.6)
+      opennextjs-cloudflare:
+        specifier: file:./tools/opennextjs-cloudflare
+        version: file:tools/opennextjs-cloudflare
       tailwindcss:
         specifier: latest
         version: 4.3.4
@@ -1199,6 +1202,10 @@ packages:
   obug@3.0.0:
     resolution: {integrity: sha512-5vvB5+W7ePv+p3uqxi+RcW1XAzLW0/hxt3/4X4Lc4qHudzOhmBiBwOY6DRob4WnanAEGvNcLjF+KNOufrUoEQw==}
     engines: {node: '>=12.20.0'}
+
+  opennextjs-cloudflare@file:tools/opennextjs-cloudflare:
+    resolution: {directory: tools/opennextjs-cloudflare, type: directory}
+    hasBin: true
 
   pako@0.2.9:
     resolution: {integrity: sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==}
@@ -2397,6 +2404,8 @@ snapshots:
   node-releases@2.0.63: {}
 
   obug@3.0.0: {}
+
+  opennextjs-cloudflare@file:tools/opennextjs-cloudflare: {}
 
   pako@0.2.9: {}
 
