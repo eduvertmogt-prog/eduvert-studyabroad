@@ -31,7 +31,7 @@ export function CountryView({ country }: { country: Country }) {
             <a className="btn btn-primary" href="#consult">
               Book a counselling <span className="arrow" aria-hidden="true">→</span>
             </a>
-            <a className="btn btn-secondary" href="/study-abroad#destinations">
+            <a className="btn btn-secondary" href="/#destinations">
               All destinations
             </a>
           </div>

@@ -1,3 +1,5 @@
+import { countries } from "./countries";
+
 export const contact = {
   phoneDisplay: "+91-9619678085",
   phoneHref: "tel:+919619678085",
@@ -28,15 +30,10 @@ export const legalLinks = [
   { label: "Return and Refund Policy", href: "/return-refund-policy" },
 ];
 
-export const destinations = [
-  { name: "United Kingdom", href: "/study-in-united-kingdom" },
-  { name: "United States", href: "/study-in-usa" },
-  { name: "Canada", href: "/study-in-canada" },
-  { name: "Australia", href: "/study-in-australia" },
-  { name: "Ireland", href: "/study-in-ireland" },
-  { name: "France", href: "/study-in-france" },
-  { name: "New Zealand", href: "/study-in-new-zealand" },
-];
+export const destinations = countries.map((country) => ({
+  name: country.name,
+  href: `/${country.path}`,
+}));
 
 export const reasons = [
   {

@@ -2,6 +2,7 @@ export type CountryFact = { title: string; text: string };
 
 export type Country = {
   slug: string;
+  path: string;
   name: string;
   metaTitle: string;
   metaDescription: string;
@@ -27,6 +28,7 @@ export const countries: Country[] = [
   {
     slug: "uk",
     name: "United Kingdom",
+    path: "study-in-united-kingdom",
     metaTitle: "Study in the United Kingdom | Eduvert",
     metaDescription:
       "Counselling for UK universities, UCAS and direct applications, scholarships where they exist, and the UK Student visa. Based in Navi Mumbai.",
@@ -91,6 +93,7 @@ export const countries: Country[] = [
   {
     slug: "usa",
     name: "United States",
+    path: "study-in-usa",
     metaTitle: "Study in the United States | Eduvert",
     metaDescription:
       "Counselling for US universities, applications, scholarships where published, and the F-1 student visa. Eduvert, Navi Mumbai.",
@@ -155,6 +158,7 @@ export const countries: Country[] = [
   {
     slug: "canada",
     name: "Canada",
+    path: "study-in-canada",
     metaTitle: "Study in Canada | Eduvert",
     metaDescription:
       "Counselling for Canadian universities and colleges, study permits, and PGWP planning. Eduvert, Navi Mumbai.",
@@ -217,6 +221,7 @@ export const countries: Country[] = [
   {
     slug: "australia",
     name: "Australia",
+    path: "study-in-australia",
     metaTitle: "Study in Australia | Eduvert",
     metaDescription:
       "Counselling for Australian universities, the student visa, and post-study work options. Eduvert, Navi Mumbai.",
@@ -280,6 +285,7 @@ export const countries: Country[] = [
   {
     slug: "ireland",
     name: "Ireland",
+    path: "study-in-ireland",
     metaTitle: "Study in Ireland | Eduvert",
     metaDescription:
       "Counselling for Irish universities, September and January intakes, and the Ireland study visa. Eduvert, Navi Mumbai.",
@@ -342,6 +348,7 @@ export const countries: Country[] = [
   {
     slug: "france",
     name: "France",
+    path: "study-in-france",
     metaTitle: "Study in France | Eduvert",
     metaDescription:
       "Counselling for study in France, including English-taught courses, Campus France, and the student visa. Eduvert, Navi Mumbai.",
@@ -405,6 +412,7 @@ export const countries: Country[] = [
   {
     slug: "nz",
     name: "New Zealand",
+    path: "study-in-new-zealand",
     metaTitle: "Study in New Zealand | Eduvert",
     metaDescription:
       "Counselling for New Zealand universities and institutes, the fee-paying student visa, and the costs Eduvert already publishes as indicative.",
@@ -469,10 +477,6 @@ export const countries: Country[] = [
   },
 ];
 
-export function getCountry(slug: string) {
-  const country = countries.find((item) => item.slug === slug);
-  if (!country) {
-    throw new Error(`Unknown country: ${slug}`);
-  }
-  return country;
+export function getCountryByPath(path: string) {
+  return countries.find((item) => item.path === path);
 }

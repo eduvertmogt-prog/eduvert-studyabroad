@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { contact, destinations } from "../lib/site";
 
 const links = [
-  { label: "How we help", href: "/study-abroad#services" },
+  { label: "How we help", href: "/#services" },
   { label: "Testimonials", href: "https://www.eduvert.co/testimonials/" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -20,9 +20,8 @@ export function SiteHeader() {
   }
 
   function current(href: string) {
-    const pathOnly = href.split("#")[0];
-    if (!pathOnly || pathOnly.startsWith("http")) return undefined;
-    return pathname === pathOnly ? "page" : undefined;
+    if (href.includes("#") || href.startsWith("http")) return undefined;
+    return pathname === href ? "page" : undefined;
   }
 
   return (
@@ -54,7 +53,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <a className="btn btn-primary" href="/study-abroad#consult">
+          <a className="btn btn-primary" href="/#consult">
             Book a counselling <span className="arrow" aria-hidden="true">→</span>
           </a>
           <button
@@ -93,7 +92,7 @@ export function SiteHeader() {
           </a>
         ))}
         <div className="mobile-actions">
-          <a className="btn btn-primary" href="/study-abroad#consult" onClick={close}>
+          <a className="btn btn-primary" href="/#consult" onClick={close}>
             Book a counselling
           </a>
           <a className="btn btn-secondary" href={contact.phoneHref}>

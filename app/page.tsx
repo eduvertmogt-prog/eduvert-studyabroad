@@ -1,65 +1,213 @@
 import type { Metadata } from "next";
-import { contact, destinations } from "../lib/site";
+import { EnquiryForm } from "../components/enquiry-form";
+import { contact, destinations, faqs, journey, reasons, services } from "../lib/site";
 
 export const metadata: Metadata = {
-  title: "Eduvert Study Abroad | Navi Mumbai",
+  title: "Eduvert Study Abroad",
   description:
-    "Eduvert counsels students from Navi Mumbai on study in the UK, USA, Canada, Australia, Ireland, France, and New Zealand.",
+    "Your future has no borders. Eduvert helps students in Navi Mumbai choose a country, a university, and the steps that follow.",
 };
 
-export default function HomePage() {
+function pad(index: number) {
+  return String(index + 1).padStart(2, "0");
+}
+
+export default function Home() {
   return (
-    <main id="content">
-      <section className="section page-hero">
-        <div className="shell hero-grid">
-          <div>
-            <p className="eyebrow">Navi Mumbai</p>
-            <h1 className="display">
-              Study abroad,
-              <br />
-              with a plan.
-            </h1>
+      <main id="content">
+        <section className="hero section" id="top">
+          <svg className="rings" viewBox="0 0 400 400" aria-hidden="true">
+            <circle cx="190" cy="180" r="120" fill="none" stroke="#00D9E7" strokeWidth="1.5" />
+            <circle cx="230" cy="210" r="96" fill="none" stroke="#FF5DB0" strokeWidth="1.5" />
+            <circle cx="168" cy="228" r="72" fill="none" stroke="#F9F91E" strokeWidth="1.5" />
+          </svg>
+          <div className="shell hero-grid">
+            <div className="hero-copy">
+              <p className="eyebrow">Study abroad consultants in Navi Mumbai</p>
+              <h1 className="display">
+                Your future
+                <br />
+                has <span className="mark">no borders.</span>
+              </h1>
+              <p className="lede">
+                Eduvert helps students choose a country and a university, prepare the application,
+                look at scholarships where they exist, and get ready for the visa and the departure.
+              </p>
+              <div className="hero-actions">
+                <a className="btn btn-primary" href="#consult">
+                  Book a counselling <span className="arrow" aria-hidden="true">→</span>
+                </a>
+                <a className="btn btn-secondary" href="#destinations">
+                  Explore destinations
+                </a>
+              </div>
+            </div>
+            <nav className="dest-index" aria-label="Destinations">
+              {destinations.map((destination, index) => (
+                <a key={destination.href} href={destination.href}>
+                  <span>{destination.name}</span>
+                  <span>{pad(index)}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </section>
+
+        <section className="section" id="why" aria-labelledby="why-title">
+          <div className="shell split">
+            <div>
+              <p className="eyebrow">Why study abroad</p>
+              <h2 className="section-title" id="why-title">
+                The decision is specific.
+              </h2>
+            </div>
+            <ol className="reason-list">
+              {reasons.map((reason, index) => (
+                <li key={reason.title}>
+                  <span className="index-num">{pad(index)}</span>
+                  <div>
+                    <strong>{reason.title}</strong>
+                    <p>{reason.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="section" id="destinations" aria-labelledby="destinations-title" style={{ paddingTop: 0 }}>
+          <div className="shell">
+            <p className="eyebrow">Seven countries</p>
+            <h2 className="section-title" id="destinations-title">
+              Explore your destination.
+            </h2>
             <p className="lede" style={{ marginTop: "1.25rem" }}>
-              Eduvert advises students on countries, universities, applications, scholarships where they exist, and visas.
-              The office is at Haware Centurion Mall, Seawoods.
+              Each country keeps its own page. Start with the place, then come back for counselling on
+              courses, eligibility, and timing.
             </p>
-            <div className="hero-actions">
-              <a className="btn btn-primary" href="/study-abroad">
-                Open Study Abroad <span className="arrow" aria-hidden="true">→</span>
-              </a>
-              <a className="btn btn-secondary" href="/contact">
-                Contact
-              </a>
+            <div className="card-grid">
+              {destinations.map((destination) => (
+                <a key={destination.name} className="card" href={destination.href} style={{ textDecoration: "none" }}>
+                  <span className="index-num">Study in</span>
+                  <h3>{destination.name}</h3>
+                  <p>Open the country guide.</p>
+                </a>
+              ))}
             </div>
           </div>
-          <div className="address-card" style={{ borderColor: "var(--color-line)", color: "inherit" }}>
-            <p className="eyebrow">Office</p>
-            <p style={{ margin: "0 0 1rem", fontSize: "1.25rem", lineHeight: 1.45 }}>{contact.address}</p>
-            <p style={{ margin: 0 }}>
-              <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
-              <br />
-              <a href={contact.emailHref}>{contact.email}</a>
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="home-destinations">
-        <div className="shell">
-          <p className="eyebrow">Destinations</p>
-          <h2 className="section-title" id="home-destinations">
-            Seven country guides.
-          </h2>
-          <div className="card-grid">
-            {destinations.map((destination) => (
-              <a key={destination.href} className="card" href={destination.href} style={{ textDecoration: "none" }}>
-                <h3>{destination.name}</h3>
-                <p>Courses, intakes, costs, and the visa.</p>
-              </a>
-            ))}
+        <section className="section" id="journey" aria-labelledby="journey-title">
+          <div className="shell">
+            <p className="eyebrow">The path</p>
+            <h2 className="section-title" id="journey-title">
+              Your study abroad journey.
+            </h2>
+            <div className="step-grid">
+              {journey.map((step, index) => (
+                <article key={step.title} className="step">
+                  <span className="step-num">{pad(index)}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        <section className="section" id="services" aria-labelledby="services-title" style={{ paddingTop: 0 }}>
+          <div className="shell">
+            <p className="eyebrow">Counselling</p>
+            <h2 className="section-title" id="services-title">
+              How Eduvert helps.
+            </h2>
+            <div className="card-grid">
+              {services.map((service) => (
+                <article key={service.title} className="card">
+                  <h3>{service.title}</h3>
+                  <p>{service.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band-dark section" id="stories" aria-labelledby="stories-title">
+          <div className="shell story-grid">
+            <div>
+              <p className="eyebrow" style={{ color: "#F9F91E" }}>
+                Student stories
+              </p>
+              <h2 className="section-title" id="stories-title">
+                Hear it from students who have already applied.
+              </h2>
+              <p className="lede" style={{ marginTop: "1.25rem" }}>
+                Student testimonials are published on Eduvert’s testimonials page. Admission
+                numbers appear there only when Eduvert has published them.
+              </p>
+              <div className="hero-actions">
+                <a className="btn btn-primary" href="https://www.eduvert.co/testimonials/">
+                  Read testimonials <span className="arrow" aria-hidden="true">→</span>
+                </a>
+                <a className="btn btn-ghost" href="#consult">
+                  Book a counselling
+                </a>
+              </div>
+            </div>
+            <div className="address-card">
+              <p className="eyebrow" style={{ color: "#F9F91E" }}>
+                Navi Mumbai
+              </p>
+              <p style={{ margin: "0 0 1rem", fontSize: "1.2rem", lineHeight: 1.45 }}>{contact.address}</p>
+              <p style={{ margin: 0 }}>
+                <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
+                <br />
+                <a href={contact.emailHref}>{contact.email}</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="questions" aria-labelledby="questions-title">
+          <div className="shell" style={{ maxWidth: "52rem" }}>
+            <p className="eyebrow">Questions</p>
+            <h2 className="section-title" id="questions-title">
+              Before you book.
+            </h2>
+            <div className="faq-list">
+              {faqs.map((faq) => (
+                <details key={faq.question} className="faq-item" name="study-abroad-faq">
+                  <summary>{faq.question}</summary>
+                  <p>{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="consult" aria-labelledby="consult-title" style={{ paddingTop: 0 }}>
+          <div className="shell consult-grid">
+            <div>
+              <p className="eyebrow">Counselling</p>
+              <h2 className="section-title" id="consult-title">
+                Your next chapter starts here.
+              </h2>
+              <p className="lede" style={{ marginTop: "1.25rem" }}>
+                Share where you want to study and how to reach you. A counsellor can reply by email,
+                phone, or WhatsApp.
+              </p>
+              <div className="hero-actions">
+                <a className="btn btn-secondary" href={contact.phoneHref}>
+                  Call {contact.phoneDisplay}
+                </a>
+                <a className="btn btn-secondary" href={contact.whatsappHref}>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+            <EnquiryForm />
+          </div>
+        </section>
+      </main>
   );
 }

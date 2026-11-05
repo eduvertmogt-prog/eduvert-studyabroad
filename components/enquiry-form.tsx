@@ -3,34 +3,42 @@
 import { type FormEvent, useState } from "react";
 import { contact, destinations } from "../lib/site";
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export function EnquiryForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const mobile = String(data.get("mobile") || "").trim();
-    const destination = String(data.get("destination") || "").trim();
-    const message = String(data.get("message") || "").trim();
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Mobile: ${mobile}`,
-      `Destination: ${destination || "Not specified"}`,
-      "",
-      message || "I would like to book a study abroad counselling session.",
-    ].join("\n");
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setStatus("sending");
 
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
-      "Study abroad counselling enquiry",
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    try {
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          mobile: data.get("mobile"),
+          destination: data.get("destination"),
+          message: data.get("message"),
+        }),
+      });
+      if (!response.ok) {
+        setStatus("error");
+        return;
+      }
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
-    <form className="form-card" onSubmit={onSubmit} noValidate={false}>
+    <form className="form-card" onSubmit={onSubmit}>
       <div className="form-grid">
         <label className="field">
           <span>Full name</span>
@@ -59,18 +67,24 @@ export function EnquiryForm() {
           <span>Message</span>
           <textarea name="message" placeholder="Course level, intake, or the question you want answered." />
         </label>
-        <button className="btn btn-primary" type="submit">
-          Send enquiry <span className="arrow" aria-hidden="true">→</span>
+        <button className="btn btn-primary" type="submit" disabled={status === "sending"}>
+          {status === "sending" ? "Sending" : "Send enquiry"}{" "}
+          <span className="arrow" aria-hidden="true">→</span>
         </button>
       </div>
       <p className="form-note">
-        This opens an email to {contact.email}. You can also call{" "}
+        This is saved for the counselling team. You can also call{" "}
         <a href={contact.phoneHref}>{contact.phoneDisplay}</a> or message on{" "}
         <a href={contact.whatsappHref}>WhatsApp</a>.
       </p>
-      {sent ? (
+      {status === "sent" ? (
         <p className="form-note" role="status">
-          Your email app should open with this enquiry. If it does not, write to {contact.email}.
+          Enquiry received. A counsellor can reply by email, phone, or WhatsApp.
+        </p>
+      ) : null}
+      {status === "error" ? (
+        <p className="form-note" role="alert">
+          The enquiry was not saved. Call {contact.phoneDisplay} or write to {contact.email}.
         </p>
       ) : null}
     </form>
