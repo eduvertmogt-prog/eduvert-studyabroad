@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { contact, destinations } from "../lib/site";
 
@@ -11,9 +11,57 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
+function pad(index: number) {
+  return String(index + 1).padStart(2, "0");
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const openRef = useRef(false);
   const pathname = usePathname();
+  const onDestination = pathname.startsWith("/study-in");
+
+  openRef.current = open;
+
+  useEffect(() => {
+    setHidden(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (open) setHidden(false);
+  }, [open]);
+
+  useEffect(() => {
+    let last = window.scrollY;
+    let frame = 0;
+
+    function update() {
+      frame = 0;
+      const y = window.scrollY;
+      const delta = y - last;
+      last = y;
+
+      if (openRef.current || y < 40) {
+        setHidden(false);
+        return;
+      }
+
+      if (delta > 8) setHidden(true);
+      else if (delta < -8) setHidden(false);
+    }
+
+    function onScroll() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   function close() {
     setOpen(false);
@@ -25,69 +73,88 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="site-header is-scrolled">
-      <div className="shell header-bar">
-        <a href="/" className="brand-logo" onClick={close}>
-          <img src="/brand/eduvert-logo.png" alt="Eduvert Overseas Education" />
-        </a>
+    <header className="site-header" data-hidden={hidden && !open ? "true" : "false"}>
+      <a href="/" className="brand-logo" onClick={close}>
+        <img src="/brand/eduvert-logo.png" alt="Eduvert Overseas Education" />
+      </a>
 
-        <nav className="nav-desktop" aria-label="Study abroad">
-          <a href="/study-abroad" aria-current={current("/study-abroad")}>
-            Study Abroad
-          </a>
-          <details className="dest-menu">
-            <summary className="nav-summary">Destinations</summary>
-            <div className="dest-panel">
-              {destinations.map((destination) => (
-                <a key={destination.href} href={destination.href} aria-current={current(destination.href)}>
-                  {destination.name}
-                </a>
-              ))}
-            </div>
-          </details>
-          {links.map((link) => (
-            <a key={link.href} href={link.href} aria-current={current(link.href)}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="header-actions">
-          <a className="btn btn-primary" href="/#consult">
-            Book a counselling <span className="arrow" aria-hidden="true">→</span>
-          </a>
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen((value) => !value)}
+      <nav className="nav-desktop" aria-label="Study abroad">
+        <div className="study-menu">
+          <a
+            className="nav-summary"
+            href="/study-abroad"
+            aria-current={pathname === "/study-abroad" || onDestination ? "page" : undefined}
+            aria-haspopup="true"
           >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-            {open ? "✕" : "☰"}
-          </button>
+            Study Abroad
+            <span className="nav-caret" aria-hidden="true" />
+          </a>
+          <div className="dest-panel">
+            <div className="dest-card">
+              <p className="dest-kicker">Seven countries</p>
+              <div className="dest-grid">
+                {destinations.map((destination, index) => (
+                  <a key={destination.href} href={destination.href} aria-current={current(destination.href)}>
+                    <span>{pad(index)}</span>
+                    <span>{destination.name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+        {links.map((link) => (
+          <a key={link.href} href={link.href} aria-current={current(link.href)}>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="header-end">
+        <a className="header-cta" href="/#consult">
+          Book a counselling
+        </a>
       </div>
+
+      <button
+        className="menu-toggle"
+        type="button"
+        aria-expanded={open}
+        aria-controls="mobile-nav"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+        <span className="menu-mark" aria-hidden="true">
+          <span />
+          <span />
+        </span>
+      </button>
 
       <div id="mobile-nav" className="mobile-panel" hidden={!open}>
         <a href="/" onClick={close} aria-current={current("/")}>
           Home
         </a>
-        <a href="/study-abroad" onClick={close} aria-current={current("/study-abroad")}>
-          Study Abroad
-        </a>
         <details>
-          <summary>Destinations</summary>
+          <summary>
+            Study Abroad
+            <span className="nav-caret" aria-hidden="true" />
+          </summary>
           <div className="dest-panel">
-            {destinations.map((destination) => (
-              <a key={destination.href} href={destination.href} onClick={close}>
-                {destination.name}
-              </a>
-            ))}
+            <a href="/study-abroad" onClick={close} aria-current={current("/study-abroad")}>
+              Study abroad
+            </a>
+            <div className="dest-grid">
+              {destinations.map((destination, index) => (
+                <a key={destination.href} href={destination.href} onClick={close} aria-current={current(destination.href)}>
+                  <span>{pad(index)}</span>
+                  <span>{destination.name}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </details>
         {links.map((link) => (
-          <a key={link.href} href={link.href} onClick={close}>
+          <a key={link.href} href={link.href} onClick={close} aria-current={current(link.href)}>
             {link.label}
           </a>
         ))}

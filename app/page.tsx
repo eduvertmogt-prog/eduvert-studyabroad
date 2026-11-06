@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EnquiryForm } from "../components/enquiry-form";
+import { HeroFlight } from "../components/hero-flight";
 import { contact, destinations, faqs, journey, reasons, services } from "../lib/site";
 
 export const metadata: Metadata = {
@@ -15,43 +16,7 @@ function pad(index: number) {
 export default function Home() {
   return (
       <main id="content">
-        <section className="hero section" id="top">
-          <svg className="rings" viewBox="0 0 400 400" aria-hidden="true">
-            <circle cx="190" cy="180" r="120" fill="none" stroke="#00D9E7" strokeWidth="1.5" />
-            <circle cx="230" cy="210" r="96" fill="none" stroke="#FF5DB0" strokeWidth="1.5" />
-            <circle cx="168" cy="228" r="72" fill="none" stroke="#F9F91E" strokeWidth="1.5" />
-          </svg>
-          <div className="shell hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow">Study abroad consultants in Navi Mumbai</p>
-              <h1 className="display">
-                Your future
-                <br />
-                has <span className="mark">no borders.</span>
-              </h1>
-              <p className="lede">
-                Eduvert helps students choose a country and a university, prepare the application,
-                look at scholarships where they exist, and get ready for the visa and the departure.
-              </p>
-              <div className="hero-actions">
-                <a className="btn btn-primary" href="#consult">
-                  Book a counselling <span className="arrow" aria-hidden="true">→</span>
-                </a>
-                <a className="btn btn-secondary" href="#destinations">
-                  Explore destinations
-                </a>
-              </div>
-            </div>
-            <nav className="dest-index" aria-label="Destinations">
-              {destinations.map((destination, index) => (
-                <a key={destination.href} href={destination.href}>
-                  <span>{destination.name}</span>
-                  <span>{pad(index)}</span>
-                </a>
-              ))}
-            </nav>
-          </div>
-        </section>
+        <HeroFlight />
 
         <section className="section" id="why" aria-labelledby="why-title">
           <div className="shell split">
