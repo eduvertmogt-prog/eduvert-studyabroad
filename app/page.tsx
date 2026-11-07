@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EnquiryForm } from "../components/enquiry-form";
 import { HeroFlight } from "../components/hero-flight";
+import { ReachBand } from "../components/reach-band";
 import { contact, destinations, faqs, journey, reasons, services } from "../lib/site";
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function Home() {
   return (
       <main id="content">
         <HeroFlight />
+        <ReachBand />
 
         <section className="section" id="why" aria-labelledby="why-title">
           <div className="shell split">

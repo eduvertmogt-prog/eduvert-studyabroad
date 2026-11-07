@@ -125,6 +125,200 @@ textarea {
   padding-block: var(--section-y);
 }
 
+.reach {
+  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2.75rem, 6vw, 5rem);
+}
+
+.reach-title {
+  margin: 0 auto 1.7rem;
+  text-align: center;
+  font-size: clamp(1.75rem, 2.8vw, 2.7rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.042em;
+}
+
+.reach-line {
+  display: block;
+}
+
+.reach-title em {
+  position: relative;
+  z-index: 0;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.reach-title em::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.06em;
+  height: 0.28em;
+  border-radius: 999px;
+  background: var(--color-pink);
+  transform: rotate(-1.5deg);
+}
+
+.reach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  align-items: stretch;
+}
+
+.reach-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.2rem 1.15rem 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  color: var(--color-ink);
+}
+
+.reach-card-yellow {
+  background: var(--color-yellow);
+}
+
+.reach-card-ink {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.reach-card-cyan {
+  background: var(--color-cyan);
+}
+
+.reach-card-seal {
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 1.35rem 1.5rem;
+  background: #fff;
+}
+
+.reach-seal {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+}
+
+.reach-value {
+  margin: 0;
+  font-size: clamp(2.7rem, 3.5vw, 3.9rem);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.06em;
+}
+
+.reach-plus {
+  font-size: 0.62em;
+  letter-spacing: -0.04em;
+}
+
+.reach-label {
+  margin: 0.4rem 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.reach-art {
+  position: relative;
+  flex: none;
+  height: 18.5rem;
+  margin: 0.7rem -1.15rem 0;
+}
+
+.reach-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reach-photo-books {
+  object-position: center 62%;
+}
+
+.reach-photo-flight {
+  object-position: center 42%;
+}
+
+.reach-photo-campus {
+  object-position: 58% center;
+}
+
+.reach-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.6rem;
+}
+
+@media (max-width: 900px) {
+  .reach-title {
+    font-size: clamp(1.65rem, 6.2vw, 2.15rem);
+  }
+
+  .reach-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reach-card-cyan,
+  .reach-card-seal {
+    grid-column: 1 / -1;
+  }
+
+  .reach-card {
+    min-height: 0;
+    padding: 1rem 0.9rem 0;
+  }
+
+  .reach-value {
+    font-size: clamp(1.85rem, 8vw, 2.45rem);
+  }
+
+  .reach-label {
+    font-size: 0.86rem;
+  }
+
+  .reach-card-seal {
+    grid-column: 1 / -1;
+    min-height: 0;
+    padding: 1.1rem 0.95rem;
+  }
+
+  .reach-seal {
+    width: 100%;
+  }
+
+  .reach-art {
+    height: 12.5rem;
+    margin: 0.45rem -0.9rem 0;
+  }
+
+  .reach-card-cyan .reach-art {
+    height: 15rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reach-card {
+    transition: transform 200ms ease;
+  }
+
+  .reach-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
 .eyebrow {
   margin: 0 0 1rem;
   font-size: 0.8125rem;
@@ -595,6 +789,42 @@ details[open] > summary .nav-caret {
   background: #2a2a30;
 }
 
+.flight-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--color-yellow);
+  pointer-events: none;
+  opacity: 0;
+  clip-path: inset(
+    var(--wash-top, 18%) var(--wash-right, 42%) var(--wash-bottom, 22%) var(--wash-left, 6%)
+    round var(--wash-radius, 2.75rem)
+  );
+}
+
+.flight-trail {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.flight-trail path {
+  fill: none;
+  stroke: rgba(16, 16, 20, 0.55);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flight-trail-fade {
+  stroke: rgba(16, 16, 20, 0.28);
+  stroke-width: 1.6;
+}
+
 .flight-plane {
   position: absolute;
   z-index: 2;
@@ -602,6 +832,12 @@ details[open] > summary .nav-caret {
   top: calc(40% + var(--hero-pull));
   width: min(22rem, 22vw);
   pointer-events: none;
+  will-change: transform;
+}
+
+.flight-plane-turn {
+  width: 100%;
+  transform-origin: 50% 50%;
 }
 
 .flight-plane svg {
@@ -843,11 +1079,11 @@ details[open] > summary .nav-caret {
     position: relative;
     align-self: flex-end;
     flex: none;
-    width: min(58vw, 13.5rem);
+    width: min(46vw, 11rem);
     right: auto;
     top: auto;
     bottom: auto;
-    margin: 0.55rem 0.15rem 0 auto;
+    margin: -2.35rem 0.45rem 0.15rem auto;
     z-index: 3;
   }
 
@@ -955,7 +1191,19 @@ details[open] > summary .nav-caret {
   }
 }
 
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  .flight-plane {
+    width: min(58vw, 13.5rem);
+    margin: 0.55rem 0.15rem 0 auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .flight-wash,
+  .flight-trail {
+    display: none;
+  }
+
   .flight,
   .flight-viewport {
     height: auto;
