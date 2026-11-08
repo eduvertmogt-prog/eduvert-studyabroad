@@ -20,7 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("intro-skip");return}var nav=performance.getEntriesByType("navigation")[0];var played=sessionStorage.getItem("eduvert-intro")==="1";if(nav&&nav.type!=="reload"&&played){document.documentElement.classList.add("intro-skip")}else{document.documentElement.classList.add("intro-lock-scroll")}}catch(e){}})();',
+              '(function(){try{document.documentElement.classList.add("js");if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("intro-skip");return}var nav=performance.getEntriesByType("navigation")[0];var played=sessionStorage.getItem("eduvert-intro")==="1";if(nav&&nav.type!=="reload"&&played){document.documentElement.classList.add("intro-skip")}else{document.documentElement.classList.add("intro-lock-scroll")}}catch(e){}})();',
           }}
         />
         <Intro />

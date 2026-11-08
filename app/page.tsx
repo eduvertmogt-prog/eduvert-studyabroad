@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { EnquiryForm } from "../components/enquiry-form";
 import { HeroFlight } from "../components/hero-flight";
 import { ReachBand } from "../components/reach-band";
-import { contact, destinations, faqs, journey, reasons, services } from "../lib/site";
+import { WhyBand } from "../components/why-band";
+import { contact, destinations, faqs, journey, services } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "Eduvert Study Abroad",
@@ -20,27 +21,7 @@ export default function Home() {
         <HeroFlight />
         <ReachBand />
 
-        <section className="section" id="why" aria-labelledby="why-title">
-          <div className="shell split">
-            <div>
-              <p className="eyebrow">Why study abroad</p>
-              <h2 className="section-title" id="why-title">
-                The decision is specific.
-              </h2>
-            </div>
-            <ol className="reason-list">
-              {reasons.map((reason, index) => (
-                <li key={reason.title}>
-                  <span className="index-num">{pad(index)}</span>
-                  <div>
-                    <strong>{reason.title}</strong>
-                    <p>{reason.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        <WhyBand />
 
         <section className="section" id="destinations" aria-labelledby="destinations-title" style={{ paddingTop: 0 }}>
           <div className="shell">

@@ -37,24 +37,24 @@ export const destinations = countries.map((country) => ({
 
 export const reasons = [
   {
-    title: "Careers that cross borders",
-    text: "Employers look for people who can work with more than one culture. An international degree is one way students build that experience.",
+    title: "A career without borders",
+    text: "Global teams need more than qualifications. They need people who can listen, adapt, and work with different perspectives. Studying abroad gives you opportunities to practise those skills in real life.",
   },
   {
-    title: "Academic choice",
-    text: "Students compare universities and courses abroad when they want a programme that fits a specific subject, length, or teaching style.",
+    title: "Study what actually excites you",
+    text: "Maybe it's a specialisation you can't find close to home. Maybe it's a completely different way of learning. Studying abroad opens up more possibilities to shape an education around what you genuinely care about.",
   },
   {
-    title: "A wider personal world",
-    text: "Living in another country is part of the education. Daily life, friendships, and independence sit alongside the degree.",
+    title: "Grow into your own person",
+    text: "The first solo grocery run. Finding your way through an unfamiliar city. Learning to make decisions without familiar faces around. Small moments like these build a kind of confidence no textbook can teach.",
   },
   {
-    title: "Language in daily use",
-    text: "Many programmes are taught in English. Learning the local language, where it differs, makes study and life outside class easier.",
+    title: "A language beyond the classroom",
+    text: "A conversation at a café. A few new words on the train. Even when your course is taught in English, everyday life gives you chances to understand the language, people, and culture around you.",
   },
   {
-    title: "People you would not meet at home",
-    text: "Classmates, faculty, and workplaces become a network that is hard to build from a single city.",
+    title: "People who change your perspective",
+    text: "You might arrive knowing almost no one. But classmates become friends, conversations become opportunities, and unfamiliar perspectives begin to feel familiar. Sometimes, the people you meet become as valuable as the education itself.",
   },
 ];
 
