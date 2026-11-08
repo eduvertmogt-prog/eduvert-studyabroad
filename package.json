@@ -13,8 +13,12 @@
 		"motion": "^14.9.1",
 		"react": "latest",
 		"react-dom": "latest",
+		"react-globe.gl": "^2.38.0",
 		"react-server-dom-webpack": "latest",
-		"vinext": "latest"
+		"three": "^0.187.0",
+		"topojson-client": "^3.1.0",
+		"vinext": "latest",
+		"world-atlas": "^2.0.2"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "beta",
@@ -22,6 +26,9 @@
 		"@types/node": "latest",
 		"@types/react": "latest",
 		"@types/react-dom": "latest",
+		"@types/three": "^0.187.0",
+		"@types/topojson-client": "^3.1.5",
+		"@types/topojson-specification": "^1.0.5",
 		"@vitejs/plugin-react": "latest",
 		"@vitejs/plugin-rsc": "latest",
 		"cf": "latest",

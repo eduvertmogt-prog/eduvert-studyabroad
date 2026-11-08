@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
+import { DestinationExplorer } from "../components/destination-explorer";
 import { EnquiryForm } from "../components/enquiry-form";
 import { HeroFlight } from "../components/hero-flight";
+import { JourneyRoadmap } from "../components/journey-roadmap";
 import { ReachBand } from "../components/reach-band";
 import { WhyBand } from "../components/why-band";
-import { contact, destinations, faqs, journey, services } from "../lib/site";
+import { contact, faqs, services } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "Eduvert Study Abroad",
   description:
     "Your future has no borders. Eduvert helps students in Navi Mumbai choose a country, a university, and the steps that follow.",
 };
-
-function pad(index: number) {
-  return String(index + 1).padStart(2, "0");
-}
 
 export default function Home() {
   return (
@@ -23,45 +21,9 @@ export default function Home() {
 
         <WhyBand />
 
-        <section className="section" id="destinations" aria-labelledby="destinations-title" style={{ paddingTop: 0 }}>
-          <div className="shell">
-            <p className="eyebrow">Seven countries</p>
-            <h2 className="section-title" id="destinations-title">
-              Explore your destination.
-            </h2>
-            <p className="lede" style={{ marginTop: "1.25rem" }}>
-              Each country keeps its own page. Start with the place, then come back for counselling on
-              courses, eligibility, and timing.
-            </p>
-            <div className="card-grid">
-              {destinations.map((destination) => (
-                <a key={destination.name} className="card" href={destination.href} style={{ textDecoration: "none" }}>
-                  <span className="index-num">Study in</span>
-                  <h3>{destination.name}</h3>
-                  <p>Open the country guide.</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+        <DestinationExplorer />
 
-        <section className="section" id="journey" aria-labelledby="journey-title">
-          <div className="shell">
-            <p className="eyebrow">The path</p>
-            <h2 className="section-title" id="journey-title">
-              Your study abroad journey.
-            </h2>
-            <div className="step-grid">
-              {journey.map((step, index) => (
-                <article key={step.title} className="step">
-                  <span className="step-num">{pad(index)}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <JourneyRoadmap />
 
         <section className="section" id="services" aria-labelledby="services-title" style={{ paddingTop: 0 }}>
           <div className="shell">
