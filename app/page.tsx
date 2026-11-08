@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { DestinationExplorer } from "../components/destination-explorer";
 import { EnquiryForm } from "../components/enquiry-form";
 import { HeroFlight } from "../components/hero-flight";
+import { CounsellorDesk } from "../components/counsellor-desk";
 import { JourneyRoadmap } from "../components/journey-roadmap";
 import { ReachBand } from "../components/reach-band";
 import { WhyBand } from "../components/why-band";
-import { contact, faqs, services } from "../lib/site";
+import { contact, faqs } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "Eduvert Study Abroad",
@@ -25,22 +26,7 @@ export default function Home() {
 
         <JourneyRoadmap />
 
-        <section className="section" id="services" aria-labelledby="services-title" style={{ paddingTop: 0 }}>
-          <div className="shell">
-            <p className="eyebrow">Counselling</p>
-            <h2 className="section-title" id="services-title">
-              How Eduvert helps.
-            </h2>
-            <div className="card-grid">
-              {services.map((service) => (
-                <article key={service.title} className="card">
-                  <h3>{service.title}</h3>
-                  <p>{service.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <CounsellorDesk />
 
         <section className="band-dark section" id="stories" aria-labelledby="stories-title">
           <div className="shell story-grid">
