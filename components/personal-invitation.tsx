@@ -13,7 +13,12 @@ const fieldCopy: Record<Field, string> = {
   mobile: "Add a mobile number.",
 };
 
-export function PersonalInvitation({ destination: preset }: { destination?: string } = {}) {
+type PersonalInvitationProps = {
+  destination?: string;
+  layout?: "destination";
+};
+
+export function PersonalInvitation({ destination: preset, layout }: PersonalInvitationProps = {}) {
   const rootRef = useRef<HTMLElement>(null);
   const sendingRef = useRef(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -102,7 +107,12 @@ export function PersonalInvitation({ destination: preset }: { destination?: stri
   }
 
   return (
-    <section className="invite section" id="consult" ref={rootRef} aria-labelledby="consult-title">
+    <section
+      className={`invite section${layout === "destination" ? " is-destination" : ""}`}
+      id="consult"
+      ref={rootRef}
+      aria-labelledby="consult-title"
+    >
       <div className="shell invite-grid">
         <div className="invite-copy">
           <div>

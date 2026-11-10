@@ -27,5 +27,25 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const country = getCountryByPath(slug);
   if (!country) notFound();
-  return <CountryView country={country} />;
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: country.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.title,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.text,
+      },
+    })),
+  };
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }}
+      />
+      <CountryView country={country} />
+    </>
+  );
 }
