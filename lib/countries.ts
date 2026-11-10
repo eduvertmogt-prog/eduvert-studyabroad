@@ -1,5 +1,11 @@
 export type CountryFact = { title: string; text: string };
 
+export type CountryPlanning = {
+  tuitionShort: string;
+  livingShort: string;
+  afterStudy: string;
+};
+
 export type Country = {
   slug: string;
   path: string;
@@ -18,10 +24,11 @@ export type Country = {
   intakes: CountryFact[];
   visa: string;
   work: string;
+  planning: CountryPlanning;
   faqs: CountryFact[];
 };
 
-const costNote =
+export const costNote =
   "These are broad public ranges for planning. They are not an Eduvert fee and not a university offer. Confirm tuition on the offer letter and living-cost rules on the visa guidance in force when you apply.";
 
 export const countries: Country[] = [
@@ -79,6 +86,11 @@ export const countries: Country[] = [
     ],
     visa: "After an offer, the usual route is the UK Student visa. Eduvert’s page lists document checks, and interview preparation where a university or visa step asks for it. Undergraduate applications often go through UCAS. Many postgraduate applications go direct to the university.",
     work: "Term-time work is capped for Student visa holders, commonly at 20 hours a week when the visa allows it, with full-time work in vacation periods. Confirm the condition printed on the visa.",
+    planning: {
+      tuitionShort: "£14–35k",
+      livingShort: "£12–18k",
+      afterStudy: "Graduate route",
+    },
     faqs: [
       {
         title: "Does every UK application go through UCAS?",
@@ -144,6 +156,11 @@ export const countries: Country[] = [
     ],
     visa: "The usual path is an admission offer, an I-20 from the university, the SEVIS fee, and an F-1 visa application with an interview. Eduvert’s page includes document support and interview preparation.",
     work: "F-1 students are generally limited to on-campus work during the first year. Curricular Practical Training can allow course-related work while enrolled. Optional Practical Training is the post-study work route Eduvert describes: up to 12 months, with a further 24 months for eligible STEM degrees. Rules are set by US immigration authorities and should be read on the current travel.state.gov and studyinthestates guidance.",
+    planning: {
+      tuitionShort: "$20–60k",
+      livingShort: "$12–20k",
+      afterStudy: "OPT",
+    },
     faqs: [
       {
         title: "Can I work off campus in the first year?",
@@ -207,6 +224,11 @@ export const countries: Country[] = [
     ],
     visa: "Canada uses a study permit, usually with a provincial attestation or equivalent letter when the current rules require one, plus biometrics. Eduvert’s page lists document checks and interview preparation. The permit is applied for after the college or university issues an acceptance letter.",
     work: "Off-campus work during term is allowed only when the study permit says so. Full-time work is generally limited to scheduled breaks. After graduation, a PGWP is a separate application and depends on the length and type of programme.",
+    planning: {
+      tuitionShort: "CAD 15–35k",
+      livingShort: "CAD 15–22k",
+      afterStudy: "PGWP",
+    },
     faqs: [
       {
         title: "Does a study permit lead straight to permanent residence?",
@@ -271,6 +293,11 @@ export const countries: Country[] = [
     ],
     visa: "The student visa is subclass 500. It needs a confirmation of enrolment from the institution, health cover, English evidence, and funds. Eduvert’s Australia page lists visa support, even though one line on the live page mistakenly says “Ireland” in the visa sentence. The destination of this page is Australia.",
     work: "The current public rule is 48 hours a fortnight while the course is in session, and more hours in scheduled breaks. Post-study work depends on the qualification, the location, and the visa settings of that year.",
+    planning: {
+      tuitionShort: "AUD 20–45k",
+      livingShort: "AUD 24–30k",
+      afterStudy: "Post-study work",
+    },
     faqs: [
       {
         title: "Is July a full second intake?",
@@ -334,6 +361,11 @@ export const countries: Country[] = [
     ],
     visa: "Indian students usually apply for a long-stay study visa and, after arrival, register for an Irish Residence Permit. Eduvert’s page lists document checks and the Ireland student visa process.",
     work: "Students on the relevant permission can work about 20 hours a week in term and longer hours in the official holiday windows. The stay-back permission is a separate step after results, and it depends on the award.",
+    planning: {
+      tuitionShort: "€10–25k",
+      livingShort: "€12–18k",
+      afterStudy: "Stay-back",
+    },
     faqs: [
       {
         title: "Is Ireland inside the UK visa system?",
@@ -398,6 +430,11 @@ export const countries: Country[] = [
     ],
     visa: "Eduvert lists Campus France, the visa file, and interview preparation. For many students the long-stay student visa is the VLS-TS, applied for after the Campus France step and the admission.",
     work: "A student residence permit can allow paid work up to 964 hours a year, roughly half-time. Post-study stay depends on the current residence rules and, for some graduates, bilateral arrangements. Check the rule for the year you finish.",
+    planning: {
+      tuitionShort: "€3–25k",
+      livingShort: "€800–1,200/mo",
+      afterStudy: "964 hours",
+    },
     faqs: [
       {
         title: "Can I study in France without French?",
@@ -464,6 +501,11 @@ export const countries: Country[] = [
     ],
     visa: "The usual permission is a Fee Paying Student Visa, applied for after an offer. Eduvert’s page lists document checks, insurance, and funds. Rules sit with Immigration New Zealand.",
     work: "Student visas can allow work up to a set weekly cap, recently published at 25 hours a week, with conditions printed on the visa. Post-study work is a separate visa and depends on the qualification.",
+    planning: {
+      tuitionShort: "NZD 22–40k",
+      livingShort: "NZD 20k",
+      afterStudy: "Post-study work",
+    },
     faqs: [
       {
         title: "Are the New Zealand fees on this page a quote?",

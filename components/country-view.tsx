@@ -1,215 +1,195 @@
-import { EnquiryForm } from "./enquiry-form";
-import type { Country } from "../lib/countries";
-import { contact } from "../lib/site";
+"use client";
 
-const support = [
-  "Profile, budget, and a realistic country-and-course shortlist.",
-  "Applications, documents, and a statement of purpose where the form needs one.",
-  "Scholarship checks against awards the university or a public scheme has actually published.",
-  "Visa paperwork for that country, and interview practice if an interview is part of the process.",
-  "IELTS guidance. Eduvert lists this on its country pages. Other tests count when the university accepts them.",
-  "Pre-departure help once the offer and the visa path are in place.",
-];
+import type { Country } from "../lib/countries";
+import { destinations } from "../lib/site";
+import { FaqIndex } from "./faq-index";
+import { GuideBoard } from "./guide-board";
+import { GuideHero } from "./guide-hero";
+import { GuideIndex } from "./guide-index";
+import { PersonalInvitation } from "./personal-invitation";
+import { useIn } from "../lib/use-in";
 
 function pad(index: number) {
   return String(index + 1).padStart(2, "0");
 }
 
-export function CountryView({ country }: { country: Country }) {
+function CountryBand({ country }: { country: Country }) {
+  const moneyRef = useIn<HTMLElement>(0.16);
+  const courseRef = useIn<HTMLElement>(0.16);
+  const visaRef = useIn<HTMLElement>(0.16);
+  const moreRef = useIn<HTMLElement>(0.16);
+  const stats = [
+    { label: "Tuition / year", value: country.planning.tuitionShort },
+    { label: "Living / year", value: country.planning.livingShort },
+    { label: "After study", value: country.planning.afterStudy },
+  ];
+  const href = destinations.find((item) => item.name === country.name)?.href;
+
   return (
-    <main id="content">
-      <section className="section page-hero">
-        <div className="shell">
-          <p className="eyebrow">Study in {country.name}</p>
-          <h1 className="display" style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}>
-            {country.headline}
-          </h1>
-          <p className="lede" style={{ marginTop: "1.25rem" }}>
-            {country.overview}
-          </p>
-          <div className="hero-actions">
-            <a className="btn btn-primary" href="#consult">
-              Book a counselling <span className="arrow" aria-hidden="true">→</span>
-            </a>
-            <a className="btn btn-secondary" href="/#destinations">
-              All destinations
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="why-country">
-        <div className="shell split">
-          <div>
-            <p className="eyebrow">Why this country</p>
-            <h2 className="section-title" id="why-country">
-              Why study here.
+    <>
+      <section className="guide-money section" ref={moneyRef} aria-labelledby="costs-title">
+        <div className="shell guide-shell">
+          <header className="guide-head">
+            <p className="eyebrow guide-rise" style={{ transitionDelay: "0ms" }}>
+              Money / Planning ranges
+            </p>
+            <h2 className="guide-heading guide-rise" id="costs-title" style={{ transitionDelay: "70ms" }}>
+              Tuition, living, what comes after.
             </h2>
-          </div>
-          <ol className="reason-list">
-            {country.reasons.map((reason, index) => (
-              <li key={reason.title}>
-                <span className="index-num">{pad(index)}</span>
-                <div>
-                  <strong>{reason.title}</strong>
-                  <p>{reason.text}</p>
-                </div>
-              </li>
+            <p className="guide-support guide-rise" style={{ transitionDelay: "140ms" }}>
+              Figures for planning. Not an offer.
+            </p>
+          </header>
+          <div className="guide-rule" aria-hidden="true" />
+          <div className="guide-figures">
+            {stats.map((item, index) => (
+              <article className="guide-figure guide-rise" key={item.label} style={{ transitionDelay: `${180 + index * 70}ms` }}>
+                <p className="guide-figure-kicker">{item.label}</p>
+                <p className="guide-figure-value">{item.value}</p>
+              </article>
             ))}
-          </ol>
+          </div>
+          <div className="guide-money-copy">
+            <p className="guide-rise" style={{ transitionDelay: "280ms" }}>
+              <strong>Tuition.</strong> {country.tuition}
+            </p>
+            <p className="guide-rise" style={{ transitionDelay: "330ms" }}>
+              <strong>Living costs.</strong> {country.living}
+            </p>
+            <p className="guide-rise" style={{ transitionDelay: "380ms" }}>
+              <strong>Scholarships.</strong> {country.scholarships}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="courses-title">
+      <section className="guide-courses section" ref={courseRef} aria-labelledby="courses-title">
         <div className="shell">
-          <p className="eyebrow">Courses and universities</p>
-          <h2 className="section-title" id="courses-title">
-            Popular subjects.
-          </h2>
-          <p className="lede" style={{ marginTop: "1.25rem" }}>
+          <header className="guide-head">
+            <p className="eyebrow guide-rise" style={{ transitionDelay: "0ms" }}>
+              Courses / Universities
+            </p>
+            <h2 className="guide-heading guide-rise" id="courses-title" style={{ transitionDelay: "70ms" }}>
+              Popular subjects.
+            </h2>
+          </header>
+          <div className="guide-rule" aria-hidden="true" />
+          <p className="guide-intro guide-rise" style={{ transitionDelay: "160ms" }}>
             {country.universities}
           </p>
-          <div className="chip-row">
-            {country.courses.map((course) => (
-              <span className="chip" key={course}>
-                {course}
-              </span>
-            ))}
+          <div className="dest-card guide-board guide-rise" style={{ transitionDelay: "220ms" }}>
+            <p className="dest-kicker">Subjects students ask about</p>
+            <div className="dest-grid guide-course-grid">
+              {country.courses.map((course, index) => (
+                <span key={course}>
+                  <span>{pad(index)}</span>
+                  <span>{course}</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="eligibility-title">
-        <div className="shell split">
-          <div>
-            <p className="eyebrow">Eligibility</p>
-            <h2 className="section-title" id="eligibility-title">
-              What an application usually needs.
-            </h2>
-          </div>
-          <ol className="reason-list">
-            {country.eligibility.map((item, index) => (
-              <li key={item}>
-                <span className="index-num">{pad(index)}</span>
-                <p>{item}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <GuideIndex
+        id="intake-title"
+        kicker={`Timing / 01—${pad(country.intakes.length - 1)}`}
+        title="Intakes."
+        support="The main window first."
+        items={country.intakes}
+      />
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="costs-title">
+      <section className="guide-visa section" ref={visaRef} aria-labelledby="visa-title">
         <div className="shell">
-          <p className="eyebrow">Money</p>
-          <h2 className="section-title" id="costs-title">
-            Tuition, living costs, scholarships.
-          </h2>
-          <div className="card-grid">
-            <article className="card">
-              <h3>Tuition</h3>
-              <p>{country.tuition}</p>
-            </article>
-            <article className="card">
-              <h3>Living costs</h3>
-              <p>{country.living}</p>
-            </article>
-            <article className="card">
-              <h3>Scholarships</h3>
-              <p>{country.scholarships}</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="intake-title">
-        <div className="shell split">
-          <div>
-            <p className="eyebrow">Timing</p>
-            <h2 className="section-title" id="intake-title">
-              Intakes.
-            </h2>
-          </div>
-          <ol className="reason-list">
-            {country.intakes.map((intake, index) => (
-              <li key={intake.title}>
-                <span className="index-num">{pad(index)}</span>
-                <div>
-                  <strong>{intake.title}</strong>
-                  <p>{intake.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="visa-title">
-        <div className="shell split">
-          <div>
-            <p className="eyebrow">Visa</p>
-            <h2 className="section-title" id="visa-title">
+          <header className="guide-head">
+            <p className="eyebrow guide-rise" style={{ transitionDelay: "0ms" }}>
+              Visa / Work
+            </p>
+            <h2 className="guide-heading guide-rise" id="visa-title" style={{ transitionDelay: "70ms" }}>
               Permission to study, and to work.
             </h2>
-          </div>
-          <div className="reason-list">
-            <article className="card">
-              <h3>Student visa</h3>
+          </header>
+          <div className="guide-rule" aria-hidden="true" />
+          <div className="guide-pair">
+            <article className="dest-card guide-rise" style={{ transitionDelay: "180ms" }}>
+              <p className="dest-kicker">Student visa</p>
+              <h3>The file after the offer.</h3>
               <p>{country.visa}</p>
             </article>
-            <article className="card" style={{ marginTop: "1rem" }}>
-              <h3>Work</h3>
+            <article className="dest-card guide-rise" style={{ transitionDelay: "240ms" }}>
+              <p className="dest-kicker">Work</p>
+              <h3>During the course, then after.</h3>
               <p>{country.work}</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="eduvert-title">
+      <section className="guide-more section" ref={moreRef} aria-labelledby="more-title">
         <div className="shell">
-          <p className="eyebrow">Why Eduvert</p>
-          <h2 className="section-title" id="eduvert-title">
-            The same counselling, for this country.
-          </h2>
-          <div className="card-grid">
-            {support.map((item, index) => (
-              <article className="card" key={item}>
-                <span className="step-num">{pad(index)}</span>
-                <p style={{ marginTop: "0.9rem" }}>{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="country-faq">
-        <div className="shell" style={{ maxWidth: "52rem" }}>
-          <p className="eyebrow">Questions</p>
-          <h2 className="section-title" id="country-faq">
-            Before you decide.
-          </h2>
-          <div className="faq-list">
-            {country.faqs.map((faq) => (
-              <details key={faq.title} className="faq-item" name={country.slug}>
-                <summary>{faq.title}</summary>
-                <p>{faq.text}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="consult" style={{ paddingTop: 0 }}>
-        <div className="shell consult-grid">
-          <div>
-            <p className="eyebrow">{country.name}</p>
-            <h2 className="section-title">Talk it through.</h2>
-            <p className="lede" style={{ marginTop: "1.25rem" }}>
-              Tell Eduvert you are looking at {country.name}. You can also call {contact.phoneDisplay} or use WhatsApp.
+          <header className="guide-head">
+            <p className="eyebrow">Destinations</p>
+            <h2 className="guide-heading" id="more-title">
+              Other countries.
+            </h2>
+            <p className="guide-support">
+              <a href="/study-abroad">All seven guides</a>
             </p>
-          </div>
-          <EnquiryForm />
+          </header>
+          <div className="guide-rule" aria-hidden="true" />
+          <GuideBoard current={href} />
         </div>
       </section>
+    </>
+  );
+}
+
+export function CountryView({ country }: { country: Country }) {
+  return (
+    <main id="content">
+      <GuideHero
+        tone="paper"
+        kicker={`Study in ${country.name}`}
+        title={country.headline}
+        lede={<p>{country.overview}</p>}
+        actions={
+          <>
+            <a className="btn btn-primary" href="#consult">
+              Book a counselling <span className="arrow" aria-hidden="true">→</span>
+            </a>
+            <a className="btn btn-secondary" href="/study-abroad">
+              All destinations
+            </a>
+          </>
+        }
+      />
+
+      <GuideIndex
+        id="why-country"
+        kicker={`Why ${country.name} / 01—${pad(country.reasons.length - 1)}`}
+        title="Why study here."
+        support="The shortlist still follows your record."
+        items={country.reasons}
+      />
+
+      <GuideIndex
+        id="eligibility-title"
+        kicker="Eligibility"
+        title="What an application usually needs."
+        items={country.eligibility.map((item) => ({ text: item }))}
+      />
+
+      <CountryBand country={country} />
+
+      <FaqIndex
+        id="country-faq"
+        items={country.faqs.map((faq) => ({ question: faq.title, answer: faq.text }))}
+        eyebrow={`Questions / ${country.name}`}
+        title="Before you decide."
+        support="Clear answers for this destination."
+      />
+
+      <PersonalInvitation destination={country.name} />
     </main>
   );
 }

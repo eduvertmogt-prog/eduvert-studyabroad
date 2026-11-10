@@ -18,7 +18,10 @@ function pad(index: number) {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [studyOpen, setStudyOpen] = useState(false);
   const openRef = useRef(false);
+  const studyRef = useRef<HTMLDivElement>(null);
+  const studyTimer = useRef(0);
   const pathname = usePathname();
   const onDestination = pathname.startsWith("/study-in");
 
@@ -29,8 +32,10 @@ export function SiteHeader() {
   }, [pathname]);
 
   useEffect(() => {
-    if (open) setHidden(false);
-  }, [open]);
+    if (open || studyOpen) setHidden(false);
+  }, [open, studyOpen]);
+
+  useEffect(() => () => window.clearTimeout(studyTimer.current), []);
 
   useEffect(() => {
     let last = window.scrollY;
@@ -42,7 +47,9 @@ export function SiteHeader() {
       const delta = y - last;
       last = y;
 
-      if (openRef.current || y < 40) {
+      const study = studyRef.current;
+      const studyHeld = Boolean(study && (study.matches(":hover") || study.matches(":focus-within")));
+      if (openRef.current || studyHeld || y < 40) {
         setHidden(false);
         return;
       }
@@ -67,6 +74,20 @@ export function SiteHeader() {
     setOpen(false);
   }
 
+  function holdStudy() {
+    window.clearTimeout(studyTimer.current);
+    setStudyOpen(true);
+  }
+
+  function releaseStudy() {
+    window.clearTimeout(studyTimer.current);
+    studyTimer.current = window.setTimeout(() => {
+      const study = studyRef.current;
+      if (study && (study.matches(":hover") || study.matches(":focus-within"))) return;
+      setStudyOpen(false);
+    }, 420);
+  }
+
   function current(href: string) {
     if (href.includes("#") || href.startsWith("http")) return undefined;
     return pathname === href ? "page" : undefined;
@@ -79,12 +100,24 @@ export function SiteHeader() {
       </a>
 
       <nav className="nav-desktop" aria-label="Study abroad">
-        <div className="study-menu">
+        <div
+          className={`study-menu${studyOpen ? " is-open" : ""}`}
+          ref={studyRef}
+          onMouseEnter={holdStudy}
+          onMouseLeave={releaseStudy}
+          onFocus={holdStudy}
+          onBlur={(event) => {
+            const next = event.relatedTarget;
+            if (next instanceof Node && event.currentTarget.contains(next)) return;
+            releaseStudy();
+          }}
+        >
           <a
             className="nav-summary"
             href="/study-abroad"
             aria-current={pathname === "/study-abroad" || onDestination ? "page" : undefined}
             aria-haspopup="true"
+            aria-expanded={studyOpen}
           >
             Study Abroad
             <span className="nav-caret" aria-hidden="true" />

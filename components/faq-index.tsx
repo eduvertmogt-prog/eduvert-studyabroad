@@ -1,9 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { faqs } from "../lib/site";
+import { faqs as siteFaqs } from "../lib/site";
 
-export function FaqIndex() {
+type Faq = {
+  question: string;
+  answer: string;
+};
+
+type FaqIndexProps = {
+  items?: Faq[];
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  support?: string;
+};
+
+export function FaqIndex({
+  items = siteFaqs,
+  id = "questions",
+  eyebrow = "Questions / 01—05",
+  title = "Before you book.",
+  support = "Good questions deserve clear answers.",
+}: FaqIndexProps) {
   const rootRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState<number | null>(0);
 
@@ -40,25 +59,25 @@ export function FaqIndex() {
   }
 
   return (
-    <section className="faq-index section" id="questions" ref={rootRef} aria-labelledby="questions-title">
+    <section className="faq-index section" id={id} ref={rootRef} aria-labelledby={`${id}-title`}>
       <div className="shell faq-shell">
         <header className="faq-head">
           <p className="eyebrow faq-rise" style={{ transitionDelay: "0ms" }}>
-            Questions / 01—05
+            {eyebrow}
           </p>
-          <h2 className="faq-title faq-rise" id="questions-title" style={{ transitionDelay: "70ms" }}>
-            Before you book.
+          <h2 className="faq-title faq-rise" id={`${id}-title`} style={{ transitionDelay: "70ms" }}>
+            {title}
           </h2>
           <p className="faq-support faq-rise" style={{ transitionDelay: "140ms" }}>
-            Good questions deserve clear answers.
+            {support}
           </p>
         </header>
         <div className="faq-rule" aria-hidden="true" />
         <div className="faq-rows" onKeyDown={onKeyDown}>
-          {faqs.map((faq, index) => {
+          {items.map((faq, index) => {
             const on = open === index;
-            const panelId = `faq-panel-${index}`;
-            const buttonId = `faq-q-${index}`;
+            const panelId = `${id}-panel-${index}`;
+            const buttonId = `${id}-q-${index}`;
             return (
               <div
                 key={faq.question}

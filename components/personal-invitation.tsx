@@ -13,12 +13,12 @@ const fieldCopy: Record<Field, string> = {
   mobile: "Add a mobile number.",
 };
 
-export function PersonalInvitation() {
+export function PersonalInvitation({ destination: preset }: { destination?: string } = {}) {
   const rootRef = useRef<HTMLElement>(null);
   const sendingRef = useRef(false);
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState(preset ?? "");
 
   useEffect(() => {
     const node = rootRef.current;
@@ -37,9 +37,13 @@ export function PersonalInvitation() {
   }, []);
 
   useEffect(() => {
+    if (preset && destinations.some((item) => item.name === preset)) {
+      setDestination(preset);
+      return;
+    }
     const value = new URLSearchParams(window.location.search).get("destination") ?? "";
     if (destinations.some((item) => item.name === value)) setDestination(value);
-  }, []);
+  }, [preset]);
 
   function clearError(field: Field) {
     setErrors((current) => {

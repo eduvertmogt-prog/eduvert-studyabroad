@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./field-guide.css";
 
 /*
   Aeonik is the licensed face for this experience.
@@ -765,7 +766,8 @@ textarea {
 }
 
 .study-menu:hover .nav-summary:not([aria-current="page"]),
-.study-menu:focus-within .nav-summary:not([aria-current="page"]) {
+.study-menu:focus-within .nav-summary:not([aria-current="page"]),
+.study-menu.is-open .nav-summary:not([aria-current="page"]) {
   background: var(--color-ivory);
 }
 
@@ -790,6 +792,7 @@ textarea {
 
 .study-menu:hover .nav-caret,
 .study-menu:focus-within .nav-caret,
+.study-menu.is-open .nav-caret,
 details[open] > summary .nav-caret {
   transform: translateY(2px) rotate(225deg);
 }
@@ -921,11 +924,11 @@ details[open] > summary .nav-caret {
 @media (min-width: 1200px) {
   .nav-desktop .dest-panel {
     position: fixed;
-    top: 5.2rem;
+    top: 3.25rem;
     left: 50%;
     z-index: 5;
     width: min(64rem, calc(100% - 4rem));
-    padding-top: 0.7rem;
+    padding-top: 2.65rem;
     background: transparent;
     border: 0;
     box-shadow: none;
@@ -937,7 +940,8 @@ details[open] > summary .nav-caret {
   }
 
   .study-menu:hover .dest-panel,
-  .study-menu:focus-within .dest-panel {
+  .study-menu:focus-within .dest-panel,
+  .study-menu.is-open .dest-panel {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -6581,4 +6585,3 @@ html.js .sig.is-in .sig-rule {
     transition: none;
   }
 }
-
