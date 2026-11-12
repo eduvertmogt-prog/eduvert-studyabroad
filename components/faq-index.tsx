@@ -14,6 +14,7 @@ type FaqIndexProps = {
   eyebrow?: string;
   title?: string;
   support?: string;
+  embedded?: boolean;
 };
 
 export function FaqIndex({
@@ -22,6 +23,7 @@ export function FaqIndex({
   eyebrow = "Questions / 01—05",
   title = "Before you book.",
   support = "Good questions deserve clear answers.",
+  embedded = false,
 }: FaqIndexProps) {
   const rootRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState<number | null>(0);
@@ -59,8 +61,8 @@ export function FaqIndex({
   }
 
   return (
-    <section className="faq-index section" id={id} ref={rootRef} aria-labelledby={`${id}-title`}>
-      <div className="shell faq-shell">
+    <section className={`faq-index${embedded ? " is-embedded" : " section"}`} id={id} ref={rootRef} aria-labelledby={`${id}-title`}>
+      <div className={embedded ? "exam-faq-shell" : "shell faq-shell"}>
         <header className="faq-head">
           <p className="eyebrow faq-rise" style={{ transitionDelay: "0ms" }}>
             {eyebrow}

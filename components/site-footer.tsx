@@ -7,7 +7,7 @@ const eduvertLinks = [
   { label: "Home", href: "/" },
   { label: "Study Abroad", href: "/study-abroad" },
   { label: "How we help", href: "/#services" },
-  { label: "Testimonials", href: "https://www.eduvert.co/testimonials/" },
+  { label: "Exams", href: "/exams" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

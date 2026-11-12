@@ -20,7 +20,7 @@ export const companyLinks = [
   { label: "Study Abroad", href: "/study-abroad" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Testimonials", href: "https://www.eduvert.co/testimonials/" },
+  { label: "Exams", href: "/exams" },
 ];
 
 export const legalLinks = [

@@ -21,7 +21,7 @@
 
 .country-kicker {
   margin: 0 0 0.9rem;
-  color: var(--color-muted);
+  color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -41,7 +41,7 @@
 
 .country-heading span {
   display: block;
-  color: #5c5d64;
+  color: var(--color-primary);
 }
 
 .country-support,
@@ -64,7 +64,7 @@
 }
 
 .country-no {
-  color: var(--color-muted);
+  color: var(--color-text-muted);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -91,7 +91,7 @@
   min-height: clamp(34rem, calc(100svh - 7.25rem), 58rem);
   overflow: hidden;
   color: var(--color-ivory);
-  background: #101014;
+  background: var(--color-ink);
 }
 
 .country-hero-media {
@@ -255,7 +255,7 @@
 }
 
 .country-hero :focus-visible {
-  outline-color: var(--color-yellow);
+  outline-color: var(--color-primary);
 }
 
 /* Introduction */
@@ -464,7 +464,7 @@
 .country-courses li:not(:last-child)::after {
   content: "/";
   margin: 0 0.55rem;
-  color: #c4c4be;
+  color: var(--color-text-muted);
   font-weight: 500;
 }
 
@@ -712,8 +712,8 @@
   place-items: center;
   width: 2.35rem;
   height: 2.35rem;
-  background: var(--color-yellow);
-  color: var(--color-ink);
+  background: var(--color-primary);
+  color: #ffffff;
 }
 
 .country-index-name {
@@ -736,7 +736,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .country-reason:hover {
-    background: color-mix(in srgb, var(--color-yellow) 16%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 16%, transparent);
   }
 
   .country-index a:not([aria-current="page"]):hover .country-index-go {

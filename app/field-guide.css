@@ -30,7 +30,7 @@
 
 .folio-heading span {
   display: block;
-  color: #5c5d64;
+  color: var(--color-primary);
 }
 
 .folio-support {
@@ -78,7 +78,7 @@
 
 .mast-kicker {
   margin: 0 0 1.05rem;
-  color: var(--color-muted);
+  color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -106,7 +106,7 @@
 }
 
 .mast-line.is-soft {
-  color: #5c5d64;
+  color: var(--color-primary);
 }
 
 .mast-lede {
@@ -282,8 +282,8 @@
 }
 
 .folio-row.is-active .folio-num {
-  color: var(--color-ink);
-  background: var(--color-yellow);
+  color: #ffffff;
+  background: var(--color-primary);
   padding: 0.16rem 0.3rem;
   margin-left: -0.3rem;
 }
@@ -654,9 +654,9 @@
 }
 
 .ready-chapter.is-on .ready-chapter-index {
-  color: var(--color-ink);
-  background: var(--color-yellow);
-  box-shadow: 0.16rem 0 0 var(--color-yellow), -0.16rem 0 0 var(--color-yellow);
+  color: #ffffff;
+  background: var(--color-primary);
+  box-shadow: 0.16rem 0 0 var(--color-primary), -0.16rem 0 0 var(--color-primary);
 }
 
 .ready-chapter.is-on .ready-chapter-go {
@@ -714,13 +714,13 @@
 
 @media (hover: hover) and (pointer: fine) {
   .ready-ledger li:hover {
-    background: color-mix(in srgb, var(--color-yellow) 16%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 16%, transparent);
   }
 
   .ready-ledger li:hover .ready-ledger-num {
-    color: var(--color-ink);
-    background: var(--color-yellow);
-    box-shadow: 0.18rem 0 0 var(--color-yellow), -0.18rem 0 0 var(--color-yellow);
+    color: #ffffff;
+    background: var(--color-primary);
+    box-shadow: 0.18rem 0 0 var(--color-primary), -0.18rem 0 0 var(--color-primary);
   }
 }
 
@@ -993,20 +993,20 @@
 .letter-field textarea:focus {
   outline: none;
   border-color: var(--color-ink);
-  box-shadow: inset 2px 0 0 var(--color-yellow);
+  box-shadow: inset 2px 0 0 var(--color-primary);
 }
 
 .letter-field.is-invalid input,
 .letter-field.is-invalid select,
 .letter-field.is-invalid textarea {
-  border-color: var(--color-ink);
-  box-shadow: inset 2px 0 0 var(--color-yellow);
+  border-color: #7a4038;
+  box-shadow: inset 2px 0 0 #7a4038;
 }
 
 .letter-error {
   margin: 0.15rem 0 0;
   padding: 0.2rem 0 0.15rem 0.55rem;
-  border-left: 2px solid var(--color-yellow);
+  border-left: 2px solid #7a4038;
   color: var(--color-ink);
   font-size: 0.82rem;
 }

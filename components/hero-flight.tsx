@@ -51,14 +51,17 @@ const chapters = [
 function PaperPlane({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 400 210" fill="none" aria-hidden="true">
-      <path d="M86 186 L352 128 L168 156 Z" fill="rgba(16,16,20,0.12)" />
-      <path d="M64 172 L368 104 L148 132 Z" fill="#101014" />
-      <path d="M36 42 L368 104 L148 116 Z" fill="#F9F91E" />
-      <path d="M148 116 L368 104 L196 158 Z" fill="#101014" />
-      <path d="M96 74 L368 104" stroke="#101014" strokeWidth="4" strokeLinecap="round" />
+      <path className="plane-shadow" d="M86 186 L352 128 L168 156 Z" fill="rgba(16,44,62,0.14)" />
+      <path className="plane-body" d="M64 172 L368 104 L148 132 Z" fill="#102C3E" />
+      <path className="plane-wing" d="M36 42 L368 104 L148 116 Z" />
+      <path className="plane-fold" d="M148 116 L368 104 L196 158 Z" fill="#102C3E" />
+      <path className="plane-crease" d="M96 74 L368 104" stroke="#102C3E" strokeWidth="4" strokeLinecap="round" />
     </svg>
   );
 }
+
+const HERO_PORCELAIN = "#f7f8f5";
+const HERO_COAST = "#0b75a2";
 
 export function HeroFlight() {
   const root = useRef<HTMLElement>(null);
@@ -98,7 +101,7 @@ export function HeroFlight() {
         if (Math.abs(slipped) > 1) applyPull(pull + slipped);
 
         gsap.set(stage, { autoAlpha: 0 });
-        gsap.set(section, { backgroundColor: "#F7F7F2" });
+        gsap.set(section, { backgroundColor: HERO_PORCELAIN });
         gsap.set(yellow, { autoAlpha: 0 });
 
         const count = cards.length;
@@ -288,9 +291,9 @@ export function HeroFlight() {
         const introPortion = introScroll / (introScroll + chapterScroll);
         const heroBits = q(".flight-copy .eyebrow, .flight-copy .display, .flight-aside");
         const wash = q(".flight-wash")[0] as HTMLElement;
-        const trailSvg = q(".flight-trail")[0] as SVGSVGElement;
-        const trailFade = q(".flight-trail-fade")[0] as SVGPathElement;
-        const trailPath = q(".flight-trail-path")[0] as SVGPathElement;
+        const trailSvg = q(".flight-trail")[0] as unknown as SVGSVGElement;
+        const trailFade = q(".flight-trail-fade")[0] as unknown as SVGPathElement;
+        const trailPath = q(".flight-trail-path")[0] as unknown as SVGPathElement;
         const viewport = section.querySelector(".flight-viewport") as HTMLElement;
         const copy = section.querySelector(".flight-copy") as HTMLElement;
         const planeEl = plane[0] as HTMLElement;
@@ -415,7 +418,7 @@ export function HeroFlight() {
 
           const clip = cardClip();
           tl.set(wash, { autoAlpha: 1, ...clip }, 0);
-          tl.set(section, { backgroundColor: "#F7F7F2" }, 0);
+          tl.set(section, { backgroundColor: HERO_PORCELAIN }, 0);
           tl.set(heroBits, { y: 0, autoAlpha: 1 }, 0);
           tl.set(planeEl, { zIndex: 2, autoAlpha: 1, scale: 1 }, 0);
           const launchPose = desktop ? -148 : -162;
@@ -472,7 +475,7 @@ export function HeroFlight() {
             },
             0.1,
           );
-          tl.set(section, { backgroundColor: "#F9F91E" }, 0.34);
+          tl.set(section, { backgroundColor: HERO_COAST }, 0.34);
           tl.set(planeEl, { zIndex: 6 }, 0.04);
 
           const steer = (progress: number) => {

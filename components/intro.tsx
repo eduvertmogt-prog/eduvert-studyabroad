@@ -136,7 +136,7 @@ export function Intro() {
         type="button"
         className="intro-dismiss"
         onClick={skip}
-        whileHover={{ backgroundColor: "#F9F91E", color: "#101014", borderColor: "#F9F91E" }}
+        whileHover={{ backgroundColor: "#0B75A2", color: "#FFFFFF", borderColor: "#0B75A2" }}
         whileTap={{ scale: 0.96 }}
       >
         Skip
