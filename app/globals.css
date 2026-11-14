@@ -868,6 +868,7 @@ details[open] > summary .nav-caret {
   align-items: center;
   height: 3.01rem;
   padding: 0 1.2rem;
+  border: 0;
   border-radius: 999px;
   background: var(--color-primary);
   color: #ffffff;
@@ -877,6 +878,7 @@ details[open] > summary .nav-caret {
   letter-spacing: -0.02em;
   white-space: nowrap;
   box-shadow: 0 14px 36px rgba(16, 16, 20, 0.1);
+  cursor: pointer;
 }
 
 .header-cta:hover {
@@ -979,6 +981,7 @@ details[open] > summary .nav-caret {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.01em;
+  font-family: inherit;
   cursor: pointer;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
@@ -3303,6 +3306,194 @@ html:not(.js) .why-m-nav {
   font-size: 0.92rem;
 }
 
+.booking-dialog {
+  display: none;
+  width: min(36rem, calc(100% - 1.5rem));
+  max-height: calc(100vh - 1.25rem);
+  max-height: calc(100svh - 1.25rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0 28px 70px rgba(16, 44, 62, 0.22);
+  overflow: hidden;
+}
+
+.booking-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.booking-dialog::backdrop {
+  background: rgba(16, 44, 62, 0.46);
+}
+
+.booking-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.25rem 1.35rem 1.2rem;
+  overflow: hidden;
+}
+
+.booking-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: none;
+  margin-bottom: 1rem;
+  padding-bottom: 0.95rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.booking-head .eyebrow {
+  margin-bottom: 0.35rem;
+}
+
+.booking-head h2 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.booking-lead {
+  margin: 0.45rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.booking-lead a {
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.booking-lead a:hover {
+  color: var(--color-primary);
+}
+
+.booking-close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.15rem;
+  height: 2.15rem;
+  margin-top: 0.1rem;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.booking-close:hover {
+  border-color: var(--color-ink);
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.booking-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  flex: none;
+}
+
+.booking-form .field {
+  gap: 0.35rem;
+}
+
+.booking-form .field span {
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+}
+
+.booking-form .field input,
+.booking-form .field select,
+.booking-form .field textarea {
+  min-height: 2.85rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.8rem;
+  background-color: var(--color-ivory);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.booking-select {
+  position: relative;
+  display: block;
+}
+
+.booking-form .field select {
+  appearance: none;
+  padding-right: 2.3rem;
+  background-image: none;
+}
+
+.booking-chevron {
+  position: absolute;
+  top: 50%;
+  right: 0.95rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--color-ink);
+  border-bottom: 1.5px solid var(--color-ink);
+  transform: translateY(-75%) rotate(45deg);
+  pointer-events: none;
+}
+
+.booking-form .field:has(textarea) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.booking-form .field textarea {
+  flex: 1 1 auto;
+  height: 4.6rem;
+  min-height: 2.85rem;
+  max-height: 4.6rem;
+  resize: none;
+}
+
+.booking-form > .btn {
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.booking-done {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.booking-done p,
+.booking-alert {
+  margin: 0;
+}
+
+.booking-alert {
+  color: var(--color-ink);
+  font-size: 0.95rem;
+}
 
 @media (max-width: 1199px) {
   .nav-desktop,
@@ -3405,6 +3596,10 @@ html:not(.js) .why-m-nav {
     flex-direction: column;
     gap: 0.6rem;
     margin-top: 1.25rem;
+  }
+
+  .mobile-actions .btn {
+    width: 100%;
   }
 }
 

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { BookingDialog } from "./booking-dialog";
+import { bookingEvent } from "../lib/booking";
 import { contact, destinations } from "../lib/site";
 
 const linksBefore = [{ label: "How we help", href: "/#services" }];
@@ -27,6 +29,7 @@ export function SiteHeader() {
   const [hidden, setHidden] = useState(false);
   const [studyOpen, setStudyOpen] = useState(false);
   const [examOpen, setExamOpen] = useState(false);
+  const [booking, setBooking] = useState(false);
   const openRef = useRef(false);
   const studyRef = useRef<HTMLDivElement>(null);
   const examRef = useRef<HTMLDivElement>(null);
@@ -41,6 +44,12 @@ export function SiteHeader() {
   useEffect(() => {
     setHidden(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const openDialog = () => setBooking(true);
+    window.addEventListener(bookingEvent, openDialog);
+    return () => window.removeEventListener(bookingEvent, openDialog);
+  }, []);
 
   useEffect(() => {
     if (open || studyOpen || examOpen) setHidden(false);
@@ -218,9 +227,9 @@ export function SiteHeader() {
       </nav>
 
       <div className="header-end">
-        <a className="header-cta" href="/#consult">
+        <button className="header-cta" type="button" onClick={() => setBooking(true)}>
           Book a counselling
-        </a>
+        </button>
       </div>
 
       <button
@@ -290,9 +299,16 @@ export function SiteHeader() {
           </a>
         ))}
         <div className="mobile-actions">
-          <a className="btn btn-primary" href="/#consult" onClick={close}>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => {
+              close();
+              setBooking(true);
+            }}
+          >
             Book a counselling
-          </a>
+          </button>
           <a className="btn btn-secondary" href={contact.phoneHref}>
             Call {contact.phoneDisplay}
           </a>
@@ -301,6 +317,7 @@ export function SiteHeader() {
           </a>
         </div>
       </div>
+      <BookingDialog open={booking} onClose={() => setBooking(false)} />
     </header>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { contact, destinations } from "../lib/site";
+import { contact, courseOptions, destinations } from "../lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 type Field = "name" | "email" | "mobile";
@@ -89,6 +89,7 @@ export function PersonalInvitation({ destination: preset, layout }: PersonalInvi
           email,
           mobile,
           destination: data.get("destination"),
+          course: data.get("course"),
           message: data.get("message"),
         }),
       });
@@ -234,6 +235,17 @@ export function PersonalInvitation({ destination: preset, layout }: PersonalInvi
                     {destinations.map((item) => (
                       <option key={item.name} value={item.name}>
                         {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="invite-field invite-rise" style={{ transitionDelay: "440ms" }}>
+                  <span>Course</span>
+                  <select name="course" defaultValue="">
+                    <option value="">Not sure yet</option>
+                    {courseOptions.map((course) => (
+                      <option key={course} value={course}>
+                        {course}
                       </option>
                     ))}
                   </select>

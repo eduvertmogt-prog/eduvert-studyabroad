@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { contact, destinations } from "../lib/site";
+import { contact, courseOptions, destinations } from "../lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -23,6 +23,7 @@ export function EnquiryForm() {
           email: data.get("email"),
           mobile: data.get("mobile"),
           destination: data.get("destination"),
+          course: data.get("course"),
           message: data.get("message"),
         }),
       });
@@ -59,6 +60,17 @@ export function EnquiryForm() {
             {destinations.map((destination) => (
               <option key={destination.name} value={destination.name}>
                 {destination.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          <span>Course</span>
+          <select name="course" defaultValue="">
+            <option value="">Not sure yet</option>
+            {courseOptions.map((course) => (
+              <option key={course} value={course}>
+                {course}
               </option>
             ))}
           </select>

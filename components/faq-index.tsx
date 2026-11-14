@@ -38,13 +38,19 @@ export function FaqIndex({
     }
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (embedded) {
+          if (!entry?.isIntersecting) return;
+          node.classList.add("is-in");
+          observer.disconnect();
+          return;
+        }
         node.classList.toggle("is-in", Boolean(entry?.isIntersecting));
       },
       { threshold: 0.22, rootMargin: "0px 0px -8% 0px" },
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [embedded]);
 
   function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     const buttons = [...event.currentTarget.querySelectorAll<HTMLButtonElement>(".faq-q")];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EnquiryForm } from "../../components/enquiry-form";
 import { contact } from "../../lib/site";
+import "@/app/contact.css";
 
 export const metadata: Metadata = {
   title: "Contact Eduvert Study Abroad",
@@ -12,29 +13,33 @@ const mapHref =
 
 export default function ContactPage() {
   return (
-    <main id="content">
-      <section className="section page-hero">
-        <div className="shell consult-grid">
-          <div>
+    <main className="contact-page" id="content">
+      <section className="contact-section" aria-labelledby="contact-title">
+        <div className="shell contact-grid">
+          <div className="contact-copy">
             <p className="eyebrow">Contact</p>
-            <h1 className="section-title">The office, and a direct line.</h1>
-            <div className="copy">
+            <h1 className="contact-title" id="contact-title">
+              <span>The office,</span> <span>and a direct line.</span>
+            </h1>
+            <address className="contact-address">
               <p>{contact.address}</p>
-              <p>
-                The contact page on eduvert.co lists the same mall as Sector 19, Nerul East, Navi Mumbai 400706. That
-                is this office.
+              <p className="contact-note">
+                The same office is listed on eduvert.co as Sector 19, Nerul East, Navi Mumbai 400706.
               </p>
-              <p>
+            </address>
+            <ul className="contact-lines">
+              <li>
                 <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
-                <br />
+              </li>
+              <li>
                 <a href={contact.emailHref}>{contact.email}</a>
-              </p>
-            </div>
+              </li>
+            </ul>
             <div className="hero-actions">
-              <a className="btn btn-secondary" href={contact.whatsappHref}>
+              <a className="btn btn-secondary" href={contact.whatsappHref} rel="noopener noreferrer">
                 WhatsApp
               </a>
-              <a className="btn btn-secondary" href={mapHref}>
+              <a className="btn btn-secondary" href={mapHref} rel="noopener noreferrer">
                 Map
               </a>
             </div>

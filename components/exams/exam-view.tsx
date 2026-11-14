@@ -5,14 +5,23 @@ import { ContentsNav } from "./contents-nav";
 import { CountryNotes } from "./country-notes";
 import { FormatTabs } from "./format-tabs";
 
+function splitHeadline(headline: string) {
+  const comma = headline.lastIndexOf(",");
+  const splitAt = comma > 0 ? comma : headline.lastIndexOf(" ");
+  if (splitAt <= 0) return { before: "", accent: headline };
+  const before = headline.slice(0, comma > 0 ? splitAt + 1 : splitAt);
+  return { before, accent: headline.slice(splitAt + 1).trim() };
+}
+
 export function ExamView({ exam }: { exam: Exam }) {
   const others = otherExams(exam.slug);
+  const headline = splitHeadline(exam.headline);
 
   return (
     <main id="content" className="exam-page">
       <header className="exam-hero">
         <div className="shell exam-hero-grid">
-          <div>
+          <div className="exam-hero-copy">
             <nav className="exam-crumb" aria-label="Breadcrumb">
               <a href="/">Home</a>
               <span aria-hidden="true">/</span>
@@ -21,19 +30,26 @@ export function ExamView({ exam }: { exam: Exam }) {
               <span>{exam.name}</span>
             </nav>
             <p className="eyebrow">English proficiency examination</p>
-            <h1>{exam.headline}</h1>
+            <h1>
+              {headline.before ? `${headline.before} ` : null}
+              <span className="mark">{headline.accent}</span>
+            </h1>
             <p className="exam-lede">{exam.lede}</p>
+            <div className="exam-hero-actions">
+              <a className="btn btn-primary" href="#format">
+                See the format <span className="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
             <p className="exam-provider">{exam.provider}</p>
-            <a className="btn btn-primary" href="#format">
-              See the format <span className="arrow" aria-hidden="true">→</span>
-            </a>
           </div>
           <aside className="exam-sheet" aria-label="Examination facts">
-            <p className="exam-kicker">{exam.name}</p>
-            <p>{exam.fullName}</p>
+            <div className="exam-sheet-head">
+              <p className="exam-kicker">{exam.name}</p>
+              <p className="exam-sheet-title">{exam.fullName}</p>
+            </div>
             <dl className="exam-facts">
               {exam.facts.map((fact) => (
-                <div key={fact.label}>
+                <div key={fact.label} className={fact.label === "Score range" ? "is-score" : undefined}>
                   <dt>{fact.label}</dt>
                   <dd>{fact.value}</dd>
                 </div>

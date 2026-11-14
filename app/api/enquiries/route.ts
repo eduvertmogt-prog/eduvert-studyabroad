@@ -5,6 +5,7 @@ const limits = {
   email: 200,
   mobile: 40,
   destination: 80,
+  course: 120,
   message: 2000,
 };
 
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
   const email = text(input.email, limits.email);
   const mobile = text(input.mobile, limits.mobile);
   const destination = text(input.destination, limits.destination);
+  const course = text(input.course, limits.course);
   const message = text(input.message, limits.message);
 
   if (!name || !email || !mobile || !email.includes("@")) {
@@ -33,8 +35,8 @@ export async function POST(request: Request) {
 
   try {
     const rows = await sql()`
-      insert into enquiries (name, email, mobile, destination, message)
-      values (${name}, ${email}, ${mobile}, ${destination || null}, ${message || null})
+      insert into enquiries (name, email, mobile, destination, course, message)
+      values (${name}, ${email}, ${mobile}, ${destination || null}, ${course || null}, ${message || null})
       returning id
     `;
     return Response.json({ id: rows[0]?.id ?? null }, { status: 201 });

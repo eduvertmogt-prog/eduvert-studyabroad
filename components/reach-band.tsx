@@ -1,9 +1,11 @@
 "use client";
 
+import "../lib/server-raf";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { openBooking } from "../lib/booking";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -593,9 +595,9 @@ export function ReachBand() {
             <h3>Guidance backed by credentials.</h3>
             <p>CCA Certified Career Analyst.</p>
           </div>
-          <a className="btn btn-primary" href="#consult">
+          <button className="btn btn-primary" type="button" onClick={openBooking}>
             Book a counselling <span className="arrow" aria-hidden="true">→</span>
-          </a>
+          </button>
         </div>
       </div>
       </div>

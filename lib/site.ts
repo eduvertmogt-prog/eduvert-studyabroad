@@ -35,6 +35,24 @@ export const destinations = countries.map((country) => ({
   href: `/${country.path}`,
 }));
 
+export const courseOptions = [
+  "Business and management",
+  "Finance and accounting",
+  "Computer science and IT",
+  "Data science",
+  "Engineering",
+  "Law",
+  "Health and nursing",
+  "Hospitality",
+  "Media",
+  "Art and design",
+  "Architecture",
+  "Psychology",
+  "Biotechnology",
+  "Pharmaceutical sciences",
+  "Agriculture and environmental science",
+];
+
 export const reasons = [
   {
     title: "A career without borders",

@@ -1,5 +1,6 @@
 "use client";
 
+import "../lib/server-raf";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

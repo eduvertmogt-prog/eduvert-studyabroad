@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { openBooking } from "../lib/booking";
 import { voices, voicesHref, type Voice } from "../lib/voices";
 
 function indexLabel(index: number) {
@@ -105,9 +106,9 @@ export function Voices() {
           <a className="btn btn-primary" href={voicesHref}>
             Read all testimonials <span className="arrow" aria-hidden="true">→</span>
           </a>
-          <a className="btn btn-ghost" href="#consult">
+          <button className="btn btn-ghost" type="button" onClick={openBooking}>
             Book a counselling
-          </a>
+          </button>
         </div>
 
         <aside className="voices-rail voice-rise" style={{ animationDelay: "180ms" }}>

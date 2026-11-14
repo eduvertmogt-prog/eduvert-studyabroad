@@ -1,6 +1,8 @@
 "use client";
 
+import "../lib/server-raf";
 import { useRef } from "react";
+import { openBooking } from "../lib/booking";
 import { countries } from "../lib/countries";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -675,9 +677,9 @@ export function HeroFlight() {
               look at scholarships where they exist, and get ready for the visa and the departure.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="#consult">
+              <button className="btn btn-primary" type="button" onClick={openBooking}>
                 Book a counselling <span className="arrow" aria-hidden="true">→</span>
-              </a>
+              </button>
               <a className="btn btn-secondary" href="#destinations">
                 Explore destinations
               </a>

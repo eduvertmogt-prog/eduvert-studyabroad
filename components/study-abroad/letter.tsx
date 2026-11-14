@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { contact, destinations } from "../../lib/site";
+import { contact, courseOptions, destinations } from "../../lib/site";
 import { useIn } from "../../lib/use-in";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -69,6 +69,7 @@ export function Letter({ destination: preset }: { destination?: string }) {
           email,
           mobile,
           destination: data.get("destination"),
+          course: data.get("course"),
           message: data.get("message"),
         }),
       });
@@ -184,6 +185,17 @@ export function Letter({ destination: preset }: { destination?: string }) {
                   {destinations.map((item) => (
                     <option key={item.name} value={item.name}>
                       {item.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="letter-field">
+                <span>Course</span>
+                <select name="course" defaultValue="">
+                  <option value="">Not sure yet</option>
+                  {courseOptions.map((course) => (
+                    <option key={course} value={course}>
+                      {course}
                     </option>
                   ))}
                 </select>
